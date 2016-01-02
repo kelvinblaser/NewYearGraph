@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Complete Graph on 64 Vertices</title>
+		<link rel="stylesheet" href="graph2016.css">
+	</head>
+	<body>
+		<section>
+			<h1>Complete Graph on 64 Vertices</h1>
+			<h2>2016 Edges</h2>
+			<h2>Happy New Year!</h2>
+		</section>
+		
+		<figure class="container">
+			<figcaption>Use mousewheel to zoom. Click and drag to pan.</figcaption>
+			<div class="view">
+				
+			</div>
+		</figure>
+		
+		<section class="info container">
+			<h3>What is this?</h3>
+			<p>The figure above represents a complete graph on 64 vertices. A complete graph is one with an edge connecting every pair of vertices.  I've drawn the graph using small circles on the perimeter of a larger circle to represent the 64 vertices, and a single line connecting each pair of circles to represent the 2016 edges.</p>
+			
+			<h3>What does this have to do with 2016?</h3>
+			<p>The number of edges in the graph above is 2016.  2016 happens to be a triangle number, a number which is of the form <span class="math">n(n-1)/2</span>.  Triangle numbers are neat because they tell us how many pairs we can pick out of n objects when the order of the objects doesn't matter.  We have <span class="math">n</span> choices for the first of the pair, and <span class="math">n-1</span> choices for the second.  The total number of pairs when order matters is then <span class="math">n(n-1)</span>, but we've over-counted by a factor of 2 since the pair with A first and B second is the same as the pair with B first and A second when order doesn't matter.  We divide by 2 to get <span class="math">n(n-1)/2</span>.  In particular <span class="math">2016 = 64(64-1)/2</span>, so there are 2016 pairs one could pick out of a group of 64 objects.  This is precisely the number of edges in the graph.</p>
+			
+			<p class="credit">Credit for the idea goes to <a href="https://plus.google.com/+PatrickHonner/posts/K7NZ2fYUZCA">Patrick Honner</a> whose image was posted to the <a href="https://www.reddit.com/r/math">math subreddit</a>.  The implementation here, including zoom and pan capability, is my own.</p>
+		</section>
+		
+		<div></div>
+		<script src="graph2016.js"></script>
+	</body>
+</html>

@@ -1,0 +1,46 @@
+h1,
+h2 ,
+h3 {
+	text-align: center;
+}
+h1 {
+	font-size: 36px;
+}
+h2 {
+	font-size: 28px;
+}
+h3 {
+	font-size: 20px;
+}
+
+.container {
+	max-width: 1000px;
+	margin: 0 auto;
+}
+
+figcaption {
+	text-align: center;
+}
+
+
+.view {
+	max-width: 960px;
+	height: 720px;
+	border: 1px solid #000;
+	border-radius: 5px;
+	margin: 0 auto;
+}
+
+.info {
+	padding-bottom: 50px;
+}
+
+p {
+	font: 16px/1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.credit {
+	font-size: 14px;
+}
+.math {
+	font-family: "Lucida Console", "Courier New", monospace;
+}
