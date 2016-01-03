@@ -7,12 +7,15 @@ graph.view_el = document.getElementsByClassName('view')[0];
 rect = graph.view_el.getBoundingClientRect();
 graph.width = (rect.width-2);  // Subtract 2 to account for 
 graph.height = (rect.height-2);// border width.
+
 // Set initial zoom and zoom parameters
 graph.zoom = 1.0;
 graph.zoom_factor = Math.pow(2.0,1.0/12); // Very Musical
 graph.zoom_max = 16.0;
 graph.zoom_min = 0.5;
-graph.offset = {};
+
+// Offset tells where to place the image relative to the view window.
+graph.offset = {};  
 if (graph.width > graph.height) {
 	graph.offset.x = (graph.width-graph.height)/2;
 	graph.offset.y = 0;
@@ -21,12 +24,20 @@ else {
 	graph.offset.x = 0;
 	graph.offset.y = (graph.height-graph.width)/2;
 }
-// Pan and zoom parameters
+
+// Pan and zoom parameters used in event handlers
 graph.mouseDown = false;
 graph.delta_min = 2;
 
+/*****************************************************
+  Generate the Graph
+		Vertices and Edges will be stored as points in a 
+		1x1 square in the first quadrant.  They will then 
+		be properly scaled and offset when drawn in the 
+		view element by graph.draw
+*****************************************************/
 /* Create Vertices */
-graph.num_vertices = 64;
+graph.num_vertices = 64;  // Could make this interactive with a form?
 graph.make_vertices = function () {
 	var rad = 2*Math.PI / this.num_vertices;
 	this.vertices = [];
@@ -61,7 +72,7 @@ graph.make_lines();
 ****************************************/
 graph.draw = function () {
 	// Calculate conversions
-	rect = graph.view_el.getBoundingClientRect();
+	rect = graph.view_el.getBoundingClientRect(); // In case size of view_el has changed
 	this.width = (rect.width-2);  // Subtract 2 to account for 
 	this.height = (rect.height-2);// border width.
 	var conv_factor = Math.min(this.width, this.height) * this.zoom;
@@ -79,7 +90,7 @@ graph.draw = function () {
 					 '" cy="' + y + 
 					 '" r="5" fill="black" stroke-width="1" />';
 	}
-	// add lines
+	// add lines (edges)
 	for (i = 0; i < this.lines.length; i++) {
 		line = this.lines[i];
 		var x1 = line.x1*conv_factor + this.offset.x;
@@ -95,12 +106,18 @@ graph.draw = function () {
 	
 	// end svg
 	msg += '</svg>'
+	// embed svg in HTML
 	graph.view_el.innerHTML = msg;
 }
 graph.draw();
 
 /************************************************
-	Pan, Zoom, and Resize event handlers
+	Pan and Zoom Event Handlers
+		Panning and zooming are done by changing 
+		graph.zoom and graph.offset, then redrawing
+		the svg.  Zooms are done in such a way as to
+		make the mouse position a fixed point in the 
+		image.
 ************************************************/
 graph.zoom_in = function (x,y) {
 	// Don't zoom if zoomed too far
@@ -140,6 +157,7 @@ function MouseWheelHandler(e) {
 	return false;
 }
 
+/* Click and Drag - Next 3 functions */
 function MouseDownHandler(e) {
 	e.preventDefault();
 	var rect = graph.view_el.getBoundingClientRect();
@@ -176,8 +194,6 @@ function MouseUpHandler(e) {
 		var y = e.clientY - rect.top;
 		graph.offset.x += x - graph.panX;
 		graph.offset.y += y - graph.panY;
-		graph.panX = x;
-		graph.panY = y;
 		graph.mouseDown = false;
 		graph.view_el.style.cursor = 'default';
 		graph.view_el.style.cursor = 'grab';
@@ -186,6 +202,9 @@ function MouseUpHandler(e) {
 	return false;
 }
 
+// This is my attempt at addressing browser compatibility.
+// If your browser doesn't render the svg or handle pan and zoom
+// events, get a new browser.
 if (graph.view_el.addEventListener) {
 	graph.view_el.addEventListener('wheel', MouseWheelHandler);
 	graph.view_el.addEventListener('mousedown', MouseDownHandler);
@@ -198,6 +217,3 @@ else {
 	document.onmousemove = MouseMoveHandler;
 	document.onmouseup = MouseUpHandler;
 }
-
-
-

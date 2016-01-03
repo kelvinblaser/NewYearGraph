@@ -1,28 +1,10 @@
-h1,
-h2 ,
-h3 {
-	text-align: center;
-}
-h1 {
-	font-size: 36px;
-}
-h2 {
-	font-size: 28px;
-}
-h3 {
-	font-size: 20px;
-}
-
+/**************************
+	Positioning
+**************************/
 .container {
 	max-width: 1000px;
 	margin: 0 auto;
 }
-
-figcaption {
-	text-align: center;
-}
-
-
 .view {
 	max-width: 960px;
 	height: 720px;
@@ -35,6 +17,24 @@ figcaption {
 	padding-bottom: 50px;
 }
 
+/**************************
+	Typography
+**************************/
+h1,
+h2,
+h3,
+figcaption {
+	text-align: center;
+}
+h1 {
+	font-size: 36px;
+}
+h2 {
+	font-size: 28px;
+}
+h3 {
+	font-size: 20px;
+}
 p {
 	font: 16px/1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
